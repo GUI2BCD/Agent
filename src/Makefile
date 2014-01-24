@@ -27,7 +27,7 @@ OTHER =
 # define the C source files
 
 # Linux
-LINUXSRCSRAW = $(foreach d,.,$(wildcard $(addprefix $(d)/linux/*,.cpp)))
+LINUX_SRCSRAW = $(foreach d,.,$(wildcard $(addprefix $(d)/linux/*,.cpp)))
 # File that contains main
 LINUX_MAIN = ./linux/main.cpp
 LINUX_SRCS = $(filter-out $(LINUX_MAIN),$(LINUX_SRCSRAW))
