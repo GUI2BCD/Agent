@@ -13,13 +13,13 @@ CFLAGS = -Wall -g
 
 # define any directories containing header files other than /usr/include
 #
-INCLUDES = 
+INCLUDES = $(shell curl-config --cflags) 
 
 # define library paths in addition to /usr/lib
-LFLAGS =
+LFLAGS = 
 
 # define any libraries to link into executable:
-LIBS =
+LIBS = $(shell curl-config --libs)
 
 # Other flags
 OTHER = 
