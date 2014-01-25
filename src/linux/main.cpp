@@ -2,14 +2,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "process.hpp"
+#include "../shared/Config.hpp"
+#include <iostream>
 
-int main( int argc, char *argv[] ) {
+int main(int argc, char *argv[]) {
 
-	char *program[1];
-	program[0] = "iwlist";
-	program[1] = "scan";
+	Config agentConfig;
 
-	runProgram(program);
+	std::cout << agentConfig.toString();
 
 	return 0;
 
