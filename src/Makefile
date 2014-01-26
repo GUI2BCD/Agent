@@ -32,14 +32,14 @@ LINUX_SRCSRAW = $(foreach d,.,$(wildcard $(addprefix $(d)/linux/*,.cpp)))
 LINUX_MAIN = ./linux/main.cpp
 LINUX_SRCS = $(filter-out $(LINUX_MAIN),$(LINUX_SRCSRAW))
 
-# Shared
-SHARED_SRCSRAW =  $(foreach d,.,$(wildcard $(addprefix $(d)/shared/*,.cpp)))
-SHARED_FILTER =
-SHARED_SRCS =  $(filter-out $(SHARED_FILTER),$(SHARED_SRCSRAW))
+# Agent
+AGENT_SRCSRAW =  $(foreach d,.,$(wildcard $(addprefix $(d)/agent/*,.cpp)))
+AGENT_FILTER =
+AGENT_SRCS =  $(filter-out $(AGENT_FILTER),$(AGENT_SRCSRAW))
 
 # define the C object files 
 LINUX_OBJS = $(LINUX_SRCS:.cpp=.o)
-SHARED_OBJS = $(SHARED_SRCS:.cpp=.o)
+AGENT_OBJS = $(AGENT_SRCS:.cpp=.o)
 
 # define the executable file
 LINUX_BIN = linux_agent
@@ -56,8 +56,8 @@ all:    $(LINUX_BIN)
 	@echo  Build Successful
 
 # Linux agent
-$(LINUX_BIN): $(LINUX_MAIN) $(LINUX_OBJS) $(SHARED_OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(LINUX_BIN) $(LINUX_MAIN) $(LINUX_OBJS) $(SHARED_OBJS) $(LFLAGS) $(LIBS) $(OTHER)
+$(LINUX_BIN): $(LINUX_MAIN) $(LINUX_OBJS) $(AGENT_OBJS)
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(LINUX_BIN) $(LINUX_MAIN) $(LINUX_OBJS) $(AGENT_OBJS) $(LFLAGS) $(LIBS) $(OTHER)
 
 # this is a suffix replacement rule for building .o's from .c's
 # it uses automatic variables $<: the name of the prerequisite of
@@ -67,7 +67,7 @@ $(LINUX_BIN): $(LINUX_MAIN) $(LINUX_OBJS) $(SHARED_OBJS)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
 
 clean:
-	$(RM) $(LINUX_BIN) $(LINUX_OBJS) $(SHARED_OBJS) *~
+	$(RM) $(LINUX_BIN) $(LINUX_OBJS) $(AGENT_OBJS) *~
 
 depend: $(SRCS) $(S_SRCS)
 	makedepend $(INCLUDES) $^

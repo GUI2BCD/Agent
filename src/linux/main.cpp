@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "process.hpp"
-#include "../shared/Config.hpp"
-#include "../shared/PassiveConnection.hpp"
+#include "../agent/Config.hpp"
+#include "../agent/PassiveConnection.hpp"
 #include <iostream>
 
 int main(int argc, char *argv[]) {
@@ -15,8 +15,7 @@ int main(int argc, char *argv[]) {
 
 	test.setReportUrl("http://curl.haxx.se/libcurl/c/getinmemory.html");
 
-	std::cout
-			<< test.getStatus(agentConfig.getUserId(),
+	std::cout << test.getStatus(agentConfig.getUserId(),
 					agentConfig.getDeviceId());
 
 	return 0;
