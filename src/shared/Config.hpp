@@ -13,11 +13,8 @@
 // Mode for the agent
 enum AgentMode {
 
-	FIRSTRUN,
-	PASSIVE,
-	ACTIVE
+	FIRSTRUN, PASSIVE, ACTIVE
 };
-
 
 class Config {
 public:

@@ -15,7 +15,9 @@ int main(int argc, char *argv[]) {
 
 	test.setReportUrl("http://curl.haxx.se/libcurl/c/getinmemory.html");
 
-	std::cout << test.getStatus(agentConfig.getUserId(), agentConfig.getDeviceId());
+	std::cout
+			<< test.getStatus(agentConfig.getUserId(),
+					agentConfig.getDeviceId());
 
 	return 0;
 

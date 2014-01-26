@@ -74,7 +74,7 @@ std::string PassiveConnection::getStatus(std::string userID,
 	tmp.size = 0;
 
 	// Initialize curl
-	curl_global_init(CURL_GLOBAL_ALL);
+	curl_global_init (CURL_GLOBAL_ALL);
 
 	// Init session
 	curl_handle = curl_easy_init();
@@ -85,7 +85,7 @@ std::string PassiveConnection::getStatus(std::string userID,
 	curl_easy_setopt(curl_handle, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
 
 	// Set data destination
-	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void * )&tmp);
+	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *) &tmp);
 
 	// Set user agent
 	curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
@@ -103,7 +103,6 @@ std::string PassiveConnection::getStatus(std::string userID,
 		result = tmp.memory;
 	}
 
-
 	// Cleanup curl handle
 	curl_easy_cleanup(curl_handle);
 
@@ -114,7 +113,6 @@ std::string PassiveConnection::getStatus(std::string userID,
 	curl_global_cleanup();
 
 	return result;
-
 
 }
 
