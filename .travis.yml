@@ -1,0 +1,6 @@
+language: cpp
+compiler:
+  - gcc
+# Change this to your needs
+before_script: cd src
+script: make
