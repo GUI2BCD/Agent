@@ -10,8 +10,18 @@
 
 class Agent {
 public:
+
 	Agent();
 	virtual ~Agent();
+
+	// Will prompt the user to enter their details and initialize this agent
+	void firstRunSetup();
+
+	void run();
+	void registerDevice();
+	void getStatus();
+	
+
 };
 
 #endif /* AGENT_HPP_ */
