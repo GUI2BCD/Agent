@@ -237,3 +237,11 @@ const std::string& Config::getUserName() const {
 void Config::setUserName(const std::string& userName) {
     this->userName = userName;
 }
+
+int Config::getPollInterval() const {
+	return pollInterval;
+}
+
+void Config::setPollInterval(int pollInterval) {
+	this->pollInterval = pollInterval;
+}

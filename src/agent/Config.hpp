@@ -42,6 +42,8 @@ public:
 	void setUserId(const std::string& userId);
 	const std::string& getUserName() const;
 	void setUserName(const std::string& userName);
+	int getPollInterval() const;
+	void setPollInterval(int pollInterval);
 
 private:
 	// Username entered by user at first run
@@ -52,6 +54,8 @@ private:
 	std::string deviceID;
 	// Current mode of the agent controlling actions
 	AgentMode mode;
+	// Poll interval of the agent
+	int pollInterval;
 };
 
 #endif /* CONFIG_HPP_ */

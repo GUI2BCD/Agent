@@ -50,7 +50,16 @@ PassiveConnection::~PassiveConnection() {
 	// TODO Auto-generated destructor stub
 }
 
-// Source for curl: http://curl.haxx.se/libcurl/c/getinmemory.html
+/**
+ * This function will to connect to the serverside and request the status of
+ * the device under a user's account and return the status as a string
+ *
+ * Source for curl: http://curl.haxx.se/libcurl/c/getinmemory.html
+ *
+ * @param userID numeric identification of user
+ * @param deviceID numeric indentification of device
+ * @return string representation of device status
+ */
 std::string PassiveConnection::getStatus(std::string userID,
 		std::string deviceID) {
 
