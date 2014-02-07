@@ -9,11 +9,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-Config::Config() {
 
-    setMode(FIRSTRUN);
-    // Check if setup is required
-    init();
+Config::Config() {
 
 }
 
@@ -21,19 +18,10 @@ Config::~Config() {
     // TODO Auto-generated destructor stub
 }
 
-bool Config::init() {
-
-    // Check if the config exists and is valid
-    if (!loadConfig()) {
-        // Prompt user
-        std::cout << "First time setup required." << std::endl;
-        return false;
-    }
-
-    return true;
-
-}
-
+/**
+ * This loads the configuration file from disk to memory
+ * @return bool of status whether config is valid or not
+ */
 bool Config::loadConfig() {
 
     // File object handle
@@ -137,7 +125,10 @@ bool Config::loadConfig() {
     config.close();
     return true;
 }
-
+/**
+ * Saves the configuration from memory to the disk
+ * @return bool whether save was successful
+ */
 bool Config::saveConfig() {
 
     std::ofstream config;
@@ -192,6 +183,10 @@ bool Config::saveConfig() {
 
 }
 
+/**
+ * Creates a string representation of the configuration
+ * @return string representation
+ */
 std::string Config::toString() {
 
     std::stringstream tmp;

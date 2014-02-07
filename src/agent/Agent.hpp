@@ -23,19 +23,20 @@ public:
 	void firstRunSetup();
 	void registerDevice();
 	void getStatus();
-	
-	static void sigShutdown( int n );
 
+	// Signal handler for the agent
+	static void sigShutdown(int n);
 
 private:
 
+	// Setup for each signal
 	void setSignals();
-
+	// Holds the agent's configuration
 	Config config;
+	// Communicates with the server
 	PassiveConnection connection;
-
+	// Whether agent is running or not
 	static bool running;
-
 
 };
 

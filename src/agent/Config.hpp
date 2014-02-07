@@ -23,8 +23,6 @@ public:
 	// Cleans up config
 	virtual ~Config();
 
-	// Checks the status of the config and loads it if possible
-	bool init();
 	// Loads the options from the file into memory
 	bool loadConfig();
 	// Saves the options from memory to file

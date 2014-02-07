@@ -98,6 +98,7 @@ void Agent::firstRunSetup() {
 	// Unblank input
 	tty.c_lflag |= ECHO;
 	tcsetattr(STDIN_FILENO, TCSANOW, &tty);
+	std::cout << std::endl;
 
 	// TODO Encrypt password
 
