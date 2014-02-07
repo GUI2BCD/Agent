@@ -10,10 +10,12 @@
 #include <iostream>
 #include <termios.h>
 #include <unistd.h>
+#include <signal.h>
+
+bool Agent::running = true;
 
 Agent::Agent() {
-
-
+	config.setPollInterval(10);
 
 }
 
@@ -21,12 +23,17 @@ Agent::~Agent() {
 	// TODO Auto-generated destructor stub
 }
 
+/**
+ * This function is the main loop of the agent. It handles the entire logic
+ * of the agent.
+ */
 void Agent::run() {
 
 	// Holds the current status of the device
 	std::string status;
 
-	// TODO Setup OS signals to handle smooth shutdown
+	// Setup signals
+	setSignals();
 
 	// Load configuration file
 	if (!config.loadConfig()) {
@@ -35,18 +42,16 @@ void Agent::run() {
 	}
 
 	// Enter main daemon loop
-	while (1) {
+	while (running) {
 
 		// Get status of device
-		status = connection.getStatus(config.getUserName(),
-									  config.getPassword(),
-									  config.getDeviceId());
+		//status = connection.getStatus(config.getUserName(),
+		//		config.getPassword(), config.getDeviceId());
 
 		std::cout << "Status: " << status << std::endl;
-		if( status == "lost" ) {
+		if (status == "lost") {
 
-		}
-		else {
+		} else {
 			// Wait for next poll
 			sleep(config.getPollInterval());
 		}
@@ -105,5 +110,35 @@ void Agent::firstRunSetup() {
 	config.setUserName(username);
 	config.setPassword(password);
 
+}
+
+/**
+ * This function will set the agent to shutdown after catching a signal from OS
+ * @param n
+ */
+void Agent::sigShutdown(int n) {
+	std::cout << "Shutting down..." << std::endl;
+	running = false;
+}
+
+/**
+ * This function sets the OS signals to be handled by our signal handler
+ */
+void Agent::setSignals() {
+
+	// Our signals we catch
+	int sigs[] = { SIGHUP, SIGINT, SIGQUIT, SIGBUS,
+	SIGTERM, SIGSEGV, SIGFPE };
+
+	int nsigs = sizeof(sigs) / sizeof(int);
+
+	// Enable the handler for each handler
+	for (int i = 0; i < nsigs; i++) {
+
+		if (signal(sigs[i], Agent::sigShutdown) == SIG_ERR) {
+			throw "Failed to set signals";
+		}
+
+	}
 
 }

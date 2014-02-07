@@ -24,10 +24,17 @@ public:
 	void registerDevice();
 	void getStatus();
 	
+	static void sigShutdown( int n );
+
+
 private:
+
+	void setSignals();
 
 	Config config;
 	PassiveConnection connection;
+
+	static bool running;
 
 
 };
