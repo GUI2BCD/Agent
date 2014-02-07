@@ -56,12 +56,13 @@ PassiveConnection::~PassiveConnection() {
  *
  * Source for curl: http://curl.haxx.se/libcurl/c/getinmemory.html
  *
- * @param userID numeric identification of user
+ * @param username User name of the user
+ * @param password User's password
  * @param deviceID numeric indentification of device
  * @return string representation of device status
  */
-std::string PassiveConnection::getStatus(std::string userID,
-		std::string deviceID) {
+std::string PassiveConnection::getStatus(std::string userName,
+		std::string password, std::string deviceID) {
 
 	CURL *curl_handle;
 	CURLcode res;
@@ -71,8 +72,10 @@ std::string PassiveConnection::getStatus(std::string userID,
 	std::string result;
 
 	// Build user URL
-	userURL = getReportUrl() + "?userid=";
-	userURL += userID;
+	userURL = getReportUrl() + "?user=";
+	userURL += userName;
+	userURL += "&password=";
+	userURL += password;
 	userURL += "&deviceid=";
 	userURL += deviceID;
 

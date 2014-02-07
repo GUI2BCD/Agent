@@ -38,7 +38,9 @@ void Agent::run() {
 	while (1) {
 
 		// Get status of device
-		status = connection.getStatus(config.getUserId(), config.getDeviceId());
+		status = connection.getStatus(config.getUserName(),
+									  config.getPassword(),
+									  config.getDeviceId());
 
 		std::cout << "Status: " << status << std::endl;
 		if( status == "lost" ) {
@@ -97,10 +99,11 @@ void Agent::firstRunSetup() {
 	// TODO Check if credentials are valid
 
 	// TODO Register this device
+	config.setDeviceId("-1");
 
 	// Store info
 	config.setUserName(username);
-
+	config.setPassword(password);
 
 
 }

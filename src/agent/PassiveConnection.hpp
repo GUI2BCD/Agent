@@ -19,7 +19,7 @@ public:
 	virtual ~PassiveConnection();
 
 	// Gets the status of the user's device
-	std::string getStatus( std::string userID, std::string deviceID );
+	std::string getStatus( std::string userName, std::string password, std::string deviceID );
 
 	// Getters & Setters
 	const std::string& getReportUrl() const;

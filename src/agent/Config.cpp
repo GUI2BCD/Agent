@@ -96,18 +96,18 @@ bool Config::loadConfig() {
             }
 
         }
-        // Userid
-        else if (tmp == "userid:") {
+        // Password
+        else if (tmp == "password:") {
             lineParser >> tmp;
 
             // Nothing set
             if (tmp.empty()) {
-                std::cout << "Error: No userid set." << std::endl;
+                std::cout << "Error: No password set." << std::endl;
                 return false;
             }
             // Userid
             else {
-                setUserId(tmp);
+                setPassword(tmp);
             }
 
         }
@@ -167,17 +167,17 @@ bool Config::saveConfig() {
         config << "username: " << std::endl;
     }
 
-    // Userid
-    if (!getUserName().empty()) {
-        config << "userid: " << getUserId() << std::endl;
+    // Password
+    if (!getPassword().empty()) {
+        config << "password: " << getPassword() << std::endl;
     }
     // Nothing set
     else {
-        config << "userid: " << std::endl;
+        config << "password: " << std::endl;
     }
 
     // Deviceid
-    if (!getUserName().empty()) {
+    if (!getDeviceId().empty()) {
         config << "deviceid: " << getDeviceId() << std::endl;
     }
     // Nothing set
@@ -198,7 +198,7 @@ std::string Config::toString() {
 
     tmp << "mode: " << getMode() << std::endl <<
         "username: " << getUserName() << std::endl <<
-        "userid: " << getUserId() << std::endl <<
+        "password: " << getPassword() << std::endl <<
         "deviceid: " << getDeviceId() << std::endl;
 
 
@@ -222,12 +222,12 @@ void Config::setMode(AgentMode mode) {
     this->mode = mode;
 }
 
-const std::string& Config::getUserId() const {
-    return userID;
+const std::string& Config::getPassword() const {
+    return password;
 }
 
-void Config::setUserId(const std::string& userId) {
-    userID = userId;
+void Config::setPassword(const std::string& password) {
+    this->password = password;
 }
 
 const std::string& Config::getUserName() const {
