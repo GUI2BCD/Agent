@@ -11,7 +11,9 @@
 #include <termios.h>
 #include <unistd.h>
 #include <signal.h>
-
+#include <openssl/sha.h>
+#include <stdio.h>
+#include <string.h>
 bool Agent::running = true;
 
 Agent::Agent() {
@@ -100,7 +102,8 @@ void Agent::firstRunSetup() {
 	tcsetattr(STDIN_FILENO, TCSANOW, &tty);
 	std::cout << std::endl;
 
-	// TODO Encrypt password
+	// Encrypt password
+	password = encryptPassword(password);
 
 	// TODO Check if credentials are valid
 
@@ -141,5 +144,27 @@ void Agent::setSignals() {
 		}
 
 	}
+
+}
+/**
+ * Encrypts password with the SHA512 algorithm
+ * Source: http://www.askyb.com/cpp/openssl-sha512-hashing-example-in-cpp/
+ *
+ * @param p unhashed password
+ * @return hashed password
+ */
+std::string Agent::encryptPassword(std::string p) {
+
+	unsigned char digest[SHA512_DIGEST_LENGTH];
+
+	SHA512((unsigned char*) p.c_str(), strlen(p.c_str()),
+			(unsigned char*) &digest);
+
+	char mdString[SHA512_DIGEST_LENGTH * 2 + 1];
+
+	for (int i = 0; i < SHA512_DIGEST_LENGTH; i++)
+		sprintf(&mdString[i * 2], "%02x", (unsigned int) digest[i]);
+
+	return std::string(mdString);
 
 }

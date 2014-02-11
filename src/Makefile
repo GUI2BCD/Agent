@@ -19,7 +19,7 @@ INCLUDES = $(shell curl-config --cflags)
 LFLAGS = 
 
 # define any libraries to link into executable:
-LIBS = $(shell curl-config --libs)
+LIBS = $(shell curl-config --libs) -lcrypto
 
 # Other flags
 OTHER = 
