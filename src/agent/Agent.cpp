@@ -18,6 +18,7 @@ bool Agent::running = true;
 
 Agent::Agent() {
 	config.setPollInterval(10);
+	connection.setReportUrl("http://192.168.1.102/Frontend/agent.php");
 
 }
 
@@ -47,8 +48,8 @@ void Agent::run() {
 	while (running) {
 
 		// Get status of device
-		//status = connection.getStatus(config.getUserName(),
-		//		config.getPassword(), config.getDeviceId());
+		status = connection.getStatus(config.getUserName(),
+				config.getPassword(), config.getDeviceId());
 
 		std::cout << "Status: " << status << std::endl;
 		if (status == "lost") {
@@ -82,30 +83,31 @@ void Agent::firstRunSetup() {
 			<< std::endl;
 	std::cout << "Please enter your account details." << std::endl << std::endl;
 
-	// Prompt for username
-	std::cout << "Username: ";
-	std::cin >> username;
+	do {
+		// Prompt for username
+		std::cout << "Username: ";
+		std::cin >> username;
 
-	// Prompt for password
-	std::cout << "Password: ";
+		// Prompt for password
+		std::cout << "Password: ";
 
-	// Blank input
-	tcgetattr(STDIN_FILENO, &tty);
-	tty.c_lflag &= ~ECHO;
-	tcsetattr(STDIN_FILENO, TCSANOW, &tty);
+		// Blank input
+		tcgetattr(STDIN_FILENO, &tty);
+		tty.c_lflag &= ~ECHO;
+		tcsetattr(STDIN_FILENO, TCSANOW, &tty);
 
-	// Get user input
-	std::cin >> password;
+		// Get user input
+		std::cin >> password;
 
-	// Unblank input
-	tty.c_lflag |= ECHO;
-	tcsetattr(STDIN_FILENO, TCSANOW, &tty);
-	std::cout << std::endl;
+		// Unblank input
+		tty.c_lflag |= ECHO;
+		tcsetattr(STDIN_FILENO, TCSANOW, &tty);
+		std::cout << std::endl;
 
-	// Encrypt password
-	password = encryptPassword(password);
+		// Encrypt password
+		password = encryptPassword(password);
 
-	// TODO Check if credentials are valid
+	}while (connection.authenticate(username,password) != "Logged in");
 
 	// TODO Register this device
 	config.setDeviceId("-1");
@@ -131,8 +133,7 @@ void Agent::sigShutdown(int n) {
 void Agent::setSignals() {
 
 	// Our signals we catch
-	int sigs[] = { SIGHUP, SIGINT, SIGQUIT, SIGBUS,
-	SIGTERM, SIGSEGV, SIGFPE };
+	int sigs[] = { SIGHUP, SIGINT, SIGQUIT, SIGBUS, SIGTERM, SIGSEGV, SIGFPE };
 
 	int nsigs = sizeof(sigs) / sizeof(int);
 

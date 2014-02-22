@@ -32,7 +32,7 @@ private:
 	// Setup for each signal
 	void setSignals();
 	// Encrypts password with SHA512 algorithm
-	std::string encryptPassword( std::string p ) ;
+	std::string encryptPassword(std::string p);
 	// Holds the agent's configuration
 	Config config;
 	// Communicates with the server

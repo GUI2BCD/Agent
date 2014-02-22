@@ -18,6 +18,12 @@ public:
 	// Cleans up
 	virtual ~PassiveConnection();
 
+	// Authenticates against server
+	std::string authenticate( std::string userName, std::string password);
+
+	// Register device to server
+	std::string registerDevice( std::string name );
+
 	// Gets the status of the user's device
 	std::string getStatus( std::string userName, std::string password, std::string deviceID );
 
