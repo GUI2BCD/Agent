@@ -22,7 +22,7 @@ public:
 	std::string authenticate( std::string userName, std::string password);
 
 	// Register device to server
-	std::string registerDevice( std::string name );
+	std::string registerDevice( std::string userName, std::string password, std::string deviceName );
 
 	// Gets the status of the user's device
 	std::string getStatus( std::string userName, std::string password, std::string deviceID );

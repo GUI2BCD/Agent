@@ -72,6 +72,8 @@ void Agent::firstRunSetup() {
 	// Temporary variables to hold user input
 	std::string username;
 	std::string password;
+	std::string deviceName;
+	std::string tmp;
 	// Terminal blanking
 	termios tty;
 
@@ -107,14 +109,24 @@ void Agent::firstRunSetup() {
 		// Encrypt password
 		password = encryptPassword(password);
 
-	}while (connection.authenticate(username,password) != "Logged in");
+	} while (connection.authenticate(username, password) != "Logged in");
 
-	// TODO Register this device
-	config.setDeviceId("-1");
+	// Register this device
+	do {
+		std::cout << "Device name: ";
+		std::cin >> deviceName;
+
+		tmp = connection.registerDevice(username, password, deviceName);
+
+	} while (tmp == "-1");
+
+	config.setDeviceId(tmp);
 
 	// Store info
 	config.setUserName(username);
 	config.setPassword(password);
+
+	std::cout << config.toString() << std::endl;
 
 }
 
