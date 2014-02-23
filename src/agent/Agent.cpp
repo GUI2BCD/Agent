@@ -19,6 +19,7 @@ bool Agent::running = true;
 Agent::Agent() {
 	config.setPollInterval(10);
 	connection.setReportUrl("http://192.168.1.102/Frontend/agent.php");
+	config.setMode(PASSIVE);
 
 }
 
