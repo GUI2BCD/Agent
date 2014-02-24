@@ -21,8 +21,10 @@ public:
 
 	// Will prompt the user to enter their details and initialize this agent
 	void firstRunSetup();
-	void registerDevice();
-	void getStatus();
+
+	// Submits a report
+	void runReport();
+
 
 	// Signal handler for the agent
 	static void sigShutdown(int n);

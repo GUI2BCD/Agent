@@ -14,6 +14,7 @@
 #include <openssl/sha.h>
 #include <stdio.h>
 #include <string.h>
+#include "Report.hpp"
 bool Agent::running = true;
 
 Agent::Agent() {
@@ -54,6 +55,13 @@ void Agent::run() {
 
 		std::cout << "Status: " << status << std::endl;
 		if (status == "lost") {
+
+			std::cout << "Collecting data..." << std::endl;
+
+			runReport();
+
+			// Wait for next poll
+			sleep(config.getPollInterval());
 
 		} else {
 			// Wait for next poll
@@ -160,6 +168,15 @@ void Agent::setSignals() {
 	}
 
 }
+
+void Agent::runReport() {
+
+	Report r;
+	r.collectData();
+	r.toPost();
+
+}
+
 /**
  * Encrypts password with the SHA512 algorithm
  * Source: http://www.askyb.com/cpp/openssl-sha512-hashing-example-in-cpp/

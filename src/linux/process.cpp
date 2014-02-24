@@ -28,7 +28,7 @@ std::string runProgram( std::string program, std::string option ) {
 	pclose(pipe);
 
 
-	return buffer;
+	return result;
 
 
 }
