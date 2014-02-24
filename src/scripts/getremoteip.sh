@@ -1,1 +1,1 @@
-curl ifconfig.me 
+curl ifconfig.me 2>&1 

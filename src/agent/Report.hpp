@@ -24,8 +24,6 @@ public:
 	// Getters & Setters
 	const std::string& getLocalIp() const;
 	void setLocalIp(const std::string& localIp);
-	const std::string& getRemoteIp() const;
-	void setRemoteIp(const std::string& remoteIp);
 	const std::string& getTraceroute() const;
 	void setTraceroute(const std::string& traceroute);
 	const std::string& getWifi() const;
@@ -35,8 +33,6 @@ private:
 
 	// Local IP address
 	std::string localIP;
-	// Remote IP address
-	std::string remoteIP;
 	// List of wifi hotspots
 	std::string wifi;
 	// Traceroute to a host

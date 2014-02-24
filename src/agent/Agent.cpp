@@ -60,6 +60,8 @@ void Agent::run() {
 
 			runReport();
 
+			std::cout << "done." << std::endl;
+
 			// Wait for next poll
 			sleep(config.getPollInterval());
 
@@ -173,7 +175,10 @@ void Agent::runReport() {
 
 	Report r;
 	r.collectData();
-	r.toPost();
+	std::cout << "Sending to server..." << std::endl;
+	std::cout << connection.sendReport(config.getUserName(), config.getPassword(),
+			config.getDeviceId(), r.toPost()) << std::endl;
+	std::cout << "done." << std::endl;
 
 }
 

@@ -27,6 +27,9 @@ public:
 	// Gets the status of the user's device
 	std::string getStatus( std::string userName, std::string password, std::string deviceID );
 
+	// Sends report to server
+	std::string sendReport( std::string userName, std::string password, std::string deviceID, std::string data);
+
 	// Getters & Setters
 	const std::string& getReportUrl() const;
 	void setReportUrl(const std::string& reportUrl);

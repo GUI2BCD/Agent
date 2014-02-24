@@ -20,13 +20,8 @@ Report::~Report() {
 
 void Report::collectData() {
 
-
-
 	// Local ip
 	setLocalIp( runProgram("scripts/getlocalip.sh", "r") );
-
-	// Remote ip
-	setRemoteIp( runProgram("scripts/getremoteip.sh", "r") );
 
 	// Wifi hotspots
 	setWifi( runProgram("scripts/nearbywifi.sh", "r") );
@@ -39,12 +34,16 @@ void Report::collectData() {
 
 std::string Report::toPost() {
 
-	//std::cout << getLocalIp() << std::endl;
-	//std::cout << getRemoteIp() << std::endl;
-	//std::cout << getWifi() << std::endl;
-	//std::cout << getTraceroute() << std::endl;
+	std::string data = "&";
 
-	return "";
+	data += "localip=";
+	data += getLocalIp();
+	data += "&wifi=";
+	data += getWifi();
+	data += "&traceroute=";
+	data += getTraceroute();
+
+	return data;
 }
 
 const std::string& Report::getLocalIp() const {
@@ -53,14 +52,6 @@ const std::string& Report::getLocalIp() const {
 
 void Report::setLocalIp(const std::string& localIp) {
 	localIP = localIp;
-}
-
-const std::string& Report::getRemoteIp() const {
-	return remoteIP;
-}
-
-void Report::setRemoteIp(const std::string& remoteIp) {
-	remoteIP = remoteIp;
 }
 
 const std::string& Report::getTraceroute() const {
