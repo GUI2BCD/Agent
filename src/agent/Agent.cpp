@@ -100,7 +100,7 @@ void Agent::firstRunSetup() {
 
 	do {
 		// Prompt for username
-		std::cout << "Username: ";
+		std::cout << "Email: ";
 		std::cin >> username;
 
 		// Prompt for password
