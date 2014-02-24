@@ -1,22 +1,13 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include "process.hpp"
-#include "../agent/Config.hpp"
-#include "../agent/PassiveConnection.hpp"
 #include <iostream>
-
+#include "../agent/Agent.hpp"
 int main(int argc, char *argv[]) {
 
-	Config agentConfig;
-	PassiveConnection test;
+	// Agent object
+	Agent agent;
 
-	std::cout << agentConfig.toString();
 
-	test.setReportUrl("http://curl.haxx.se/libcurl/c/getinmemory.html");
-
-	std::cout << test.getStatus(agentConfig.getUserId(),
-					agentConfig.getDeviceId());
+	// Starts the agent
+	agent.run();
 
 	return 0;
 

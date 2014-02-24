@@ -1,1 +1,1 @@
-traceroute cs.uml.edu
+traceroute -q1 www.google.com 2>&1
