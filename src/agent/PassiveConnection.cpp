@@ -148,7 +148,12 @@ const std::string& PassiveConnection::getStatusUrl() const {
 void PassiveConnection::setStatusUrl(const std::string& statusUrl) {
 	statusURL = statusUrl;
 }
-
+/**
+ * Checks username and password against server
+ * @param userName User's email
+ * @param password User's password
+ * @return result from server
+ */
 std::string PassiveConnection::authenticate(std::string userName,
 		std::string password) {
 
@@ -218,6 +223,13 @@ std::string PassiveConnection::authenticate(std::string userName,
 
 }
 
+/**
+ * Registers a new device to the server
+ * @param userName User's email
+ * @param password User's password
+ * @param deviceName Name of this device
+ * @return result from server
+ */
 std::string PassiveConnection::registerDevice(std::string userName,
 		std::string password, std::string deviceName) {
 
@@ -290,6 +302,14 @@ std::string PassiveConnection::registerDevice(std::string userName,
 
 }
 
+/**
+ * Sends report to the server to be stored
+ * @param userName User's email
+ * @param password Password of user
+ * @param deviceID Device id
+ * @param data Collected data
+ * @return result from server
+ */
 std::string PassiveConnection::sendReport(std::string userName,
 		std::string password, std::string deviceID, std::string data) {
 

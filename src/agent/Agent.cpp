@@ -17,6 +17,10 @@
 #include "Report.hpp"
 bool Agent::running = true;
 
+
+/**
+ * Sets the default parameters for the agent
+ */
 Agent::Agent() {
 	config.setPollInterval(10);
 	connection.setReportUrl("http://192.168.1.102/Frontend/agent.php");
@@ -53,14 +57,12 @@ void Agent::run() {
 		status = connection.getStatus(config.getUserName(),
 				config.getPassword(), config.getDeviceId());
 
+		// Print current status
 		std::cout << "Status: " << status << std::endl;
-		if (status == "lost") {
+		if (status == "LOST") {
 
-			std::cout << "Collecting data..." << std::endl;
-
+			// Generate report and submit
 			runReport();
-
-			std::cout << "done." << std::endl;
 
 			// Wait for next poll
 			sleep(config.getPollInterval());
@@ -171,13 +173,21 @@ void Agent::setSignals() {
 
 }
 
+/**
+ * Runs the data collection process and submits it to the server
+ */
 void Agent::runReport() {
 
 	Report r;
+
+	// Run data collection
+	std::cout << "Collecting data..." << std::endl;
 	r.collectData();
+	// Submit to server
 	std::cout << "Sending to server..." << std::endl;
 	std::cout << connection.sendReport(config.getUserName(), config.getPassword(),
 			config.getDeviceId(), r.toPost()) << std::endl;
+	// Completed
 	std::cout << "done." << std::endl;
 
 }

@@ -18,6 +18,9 @@ Report::~Report() {
 	// TODO Auto-generated destructor stub
 }
 
+/**
+ * Runs the collection scripts and stores result in memory
+ */
 void Report::collectData() {
 
 	// Local ip
@@ -32,6 +35,10 @@ void Report::collectData() {
 
 }
 
+/**
+ * Converts stored data into POST compatible data
+ * @return string containing POST data
+ */
 std::string Report::toPost() {
 
 	std::string data = "&";
