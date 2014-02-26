@@ -10,6 +10,8 @@
 
 #include <string>
 
+static std::string location = "/usr/share/lastresortrecovery/";
+
 class Report {
 public:
 	Report();

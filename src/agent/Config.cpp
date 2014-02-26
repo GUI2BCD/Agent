@@ -83,6 +83,7 @@ bool Config::loadConfig() {
 			}
 			// Username
 			else {
+				std::cout << tmp << std::endl;
 				setUrl(tmp);
 			}
 
@@ -173,8 +174,7 @@ bool Config::saveConfig() {
 	}
 	// Nothing set
 	else {
-		config << "url: http://morrisherd.com/LastResortRecovery/agent.php"
-				<< std::endl;
+		config << defaultURL << std::endl;
 	}
 
 	// Username

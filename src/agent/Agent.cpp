@@ -47,6 +47,9 @@ void Agent::run() {
 	if (!config.loadConfig()) {
 		// Run first time setup
 		firstRunSetup();
+	} else {
+		// Setup connection from config
+		connection.setReportUrl(config.getUrl());
 	}
 
 	// Enter main daemon loop
