@@ -35,6 +35,9 @@ bool Config::loadConfig() {
 	// File doesn't exist
 	if (!config.is_open()) {
 		config.close();
+		// Set defaults
+		setUrl(defaultURL);
+
 		return false;
 	}
 
@@ -53,7 +56,7 @@ bool Config::loadConfig() {
 			// Nothing set
 			if (tmp.empty()) {
 				std::cout << "Error: No mode set." << std::endl;
-				return false;
+				setMode(PASSIVE);
 			}
 			// Passive mode
 			else if (tmp == "passive") {
@@ -76,7 +79,7 @@ bool Config::loadConfig() {
 			// Nothing set
 			if (tmp.empty()) {
 				std::cout << "Error: No url set." << std::endl;
-				return false;
+				setUrl(defaultURL);
 			}
 			// Username
 			else {

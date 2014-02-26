@@ -49,9 +49,6 @@ void Agent::run() {
 		firstRunSetup();
 	}
 
-	// Setup connection
-	connection.setReportUrl(config.getUrl());
-
 	// Enter main daemon loop
 	while (running) {
 
@@ -91,8 +88,7 @@ void Agent::firstRunSetup() {
 	std::string tmp;
 	// Terminal blanking
 	termios tty;
-	// Set to default URL
-	config.setUrl(defaultURL);
+	// Setup connection
 	connection.setReportUrl(config.getUrl());
 
 	// Print message about the setup

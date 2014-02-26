@@ -42,7 +42,7 @@ LINUX_OBJS = $(LINUX_SRCS:.cpp=.o)
 AGENT_OBJS = $(AGENT_SRCS:.cpp=.o)
 
 # define the executable file
-LINUX_BIN = linux_agent
+LINUX_BIN = lastresortagent
 
 #
 # The following part of the makefile is generic; it can be used to 

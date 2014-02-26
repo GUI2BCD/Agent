@@ -10,6 +10,9 @@
 
 #include <string>
 
+// TODO put this in a default file somewhere
+static std::string defaultURL = "http://morrisherd.com/LastResortRecovery/agent.php";
+
 // Mode for the agent
 enum AgentMode {
 

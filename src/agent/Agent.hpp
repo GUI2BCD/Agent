@@ -10,8 +10,7 @@
 #include "Config.hpp"
 #include "PassiveConnection.hpp"
 
-// TODO put this in a default file somewhere
-static std::string defaultURL = "http://morrisherd.com/LastResortRecovery/agent.php";
+
 
 class Agent {
 public:
