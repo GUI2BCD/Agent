@@ -15,7 +15,7 @@ Config::Config() {
 }
 
 Config::~Config() {
-    // TODO Auto-generated destructor stub
+	// TODO Auto-generated destructor stub
 }
 
 /**
@@ -24,106 +24,121 @@ Config::~Config() {
  */
 bool Config::loadConfig() {
 
-    // File object handle
-    std::ifstream config;
-    // Parsing variables
-    std::string token, tmp;
+	// File object handle
+	std::ifstream config;
+	// Parsing variables
+	std::string token, tmp;
 
-    // Open file
-    config.open("agent.cfg");
+	// Open file
+	config.open("/etc/llragent.cfg");
 
-    // File doesn't exist
-    if( !config.is_open() ) {
-        config.close();
-        return false;
-    }
+	// File doesn't exist
+	if (!config.is_open()) {
+		config.close();
+		return false;
+	}
 
-    // Read through file line by line
-    while (config.is_open() && std::getline(config, token)) {
+	// Read through file line by line
+	while (config.is_open() && std::getline(config, token)) {
 
-        std::stringstream lineParser(token);
-        lineParser >> tmp;
+		std::stringstream lineParser(token);
+		lineParser >> tmp;
 
-        // Handle each key here
+		// Handle each key here
 
-        // Mode
-        if (tmp == "mode:") {
-            lineParser >> tmp;
+		// Mode
+		if (tmp == "mode:") {
+			lineParser >> tmp;
 
-            // Nothing set
-            if (tmp.empty()) {
-                std::cout << "Error: No mode set." << std::endl;
-                return false;
-            }
-            // Passive mode
-            else if (tmp == "passive") {
-                setMode(PASSIVE);
-            }
-            // Active mode
-            else if (tmp == "active") {
-                setMode(ACTIVE);
-            }
-            // Bad option
-            else {
-                std::cout << "Mode invalid option: " << tmp;
-                setMode(PASSIVE);
-            }
-        }
-        // Username
-        else if (tmp == "username:") {
-            lineParser >> tmp;
+			// Nothing set
+			if (tmp.empty()) {
+				std::cout << "Error: No mode set." << std::endl;
+				return false;
+			}
+			// Passive mode
+			else if (tmp == "passive") {
+				setMode(PASSIVE);
+			}
+			// Active mode
+			else if (tmp == "active") {
+				setMode(ACTIVE);
+			}
+			// Bad option
+			else {
+				std::cout << "Mode invalid option: " << tmp;
+				setMode(PASSIVE);
+			}
+		}
+		// URL
+		else if (tmp == "url:") {
+			lineParser >> tmp;
 
-            // Nothing set
-            if (tmp.empty()) {
-                std::cout << "Error: No username set." << std::endl;
-                return false;
-            }
-            // Username
-            else {
-                setUserName(tmp);
-            }
+			// Nothing set
+			if (tmp.empty()) {
+				std::cout << "Error: No url set." << std::endl;
+				return false;
+			}
+			// Username
+			else {
+				setUrl(tmp);
+			}
 
-        }
-        // Password
-        else if (tmp == "password:") {
-            lineParser >> tmp;
+		}
+		// Username
+		else if (tmp == "username:") {
+			lineParser >> tmp;
 
-            // Nothing set
-            if (tmp.empty()) {
-                std::cout << "Error: No password set." << std::endl;
-                return false;
-            }
-            // Userid
-            else {
-                setPassword(tmp);
-            }
+			// Nothing set
+			if (tmp.empty()) {
+				std::cout << "Error: No username set." << std::endl;
+				return false;
+			}
+			// Username
+			else {
+				setUserName(tmp);
+			}
 
-        }
+		}
+		// Password
+		else if (tmp == "password:") {
+			lineParser >> tmp;
 
-        // Deviceid
-        else if (tmp == "deviceid:") {
-            lineParser >> tmp;
+			// Nothing set
+			if (tmp.empty()) {
+				std::cout << "Error: No password set." << std::endl;
+				return false;
+			}
+			// Userid
+			else {
+				setPassword(tmp);
+			}
 
-            // Nothing set
-            if (tmp.empty()) {
-                std::cout << "Error: No deviceid set." << std::endl;
-                return false;
-            }
-            // Username
-            else {
-                setDeviceId(tmp);
-            }
+		}
 
-        }
-        // Bad key
-        else {
-            std::cout << "Invalid key: " << tmp << std::endl;
-        }
+		// Deviceid
+		else if (tmp == "deviceid:") {
+			lineParser >> tmp;
 
-    }
+			// Nothing set
+			if (tmp.empty()) {
+				std::cout << "Error: No deviceid set." << std::endl;
+				return false;
+			}
+			// Username
+			else {
+				setDeviceId(tmp);
+			}
 
-    config.close();
-    return true;
+		}
+		// Bad key
+		else {
+			std::cout << "Invalid key: " << tmp << std::endl;
+		}
+
+	}
+
+	config.close();
+	return true;
 }
 /**
  * Saves the configuration from memory to the disk
@@ -131,55 +146,65 @@ bool Config::loadConfig() {
  */
 bool Config::saveConfig() {
 
-    std::ofstream config;
+	std::ofstream config;
 
-    // Open config file and write each key
-    config.open("agent.cfg");
+	// Open config file and write each key
+	config.open("/etc/llragent.cfg");
 
-    // Passive mode
-    if (getMode() == PASSIVE) {
-        config << "mode: passive" << std::endl;
-    }
-    // Active mode
-    else if (getMode() == ACTIVE) {
-        config << "mode: active" << std::endl;
-    }
-    // Nothing set
-    else {
-        config << "mode: passive" << std::endl;
-    }
+	// Passive mode
+	if (getMode() == PASSIVE) {
+		config << "mode: passive" << std::endl;
+	}
+	// Active mode
+	else if (getMode() == ACTIVE) {
+		config << "mode: active" << std::endl;
+	}
+	// Nothing set
+	else {
+		config << "mode: passive" << std::endl;
+	}
 
-    // Username
-    if (!getUserName().empty()) {
-        config << "username: " << getUserName() << std::endl;
-    }
-    // Nothing set
-    else {
-        config << "username: " << std::endl;
-    }
+	// URL
+	if (!getUrl().empty()) {
+		config << "url: " << getUrl() << std::endl;
+	}
+	// Nothing set
+	else {
+		config << "url: http://morrisherd.com/LastResortRecovery/agent.php"
+				<< std::endl;
+	}
 
-    // Password
-    if (!getPassword().empty()) {
-        config << "password: " << getPassword() << std::endl;
-    }
-    // Nothing set
-    else {
-        config << "password: " << std::endl;
-    }
+	// Username
+	if (!getUserName().empty()) {
+		config << "username: " << getUserName() << std::endl;
+	}
+	// Nothing set
+	else {
+		config << "username: " << std::endl;
+	}
 
-    // Deviceid
-    if (!getDeviceId().empty()) {
-        config << "deviceid: " << getDeviceId() << std::endl;
-    }
-    // Nothing set
-    else {
-        config << "deviceid: " << std::endl;
-    }
+	// Password
+	if (!getPassword().empty()) {
+		config << "password: " << getPassword() << std::endl;
+	}
+	// Nothing set
+	else {
+		config << "password: " << std::endl;
+	}
 
-    // Close file
-    config.close();
+	// Deviceid
+	if (!getDeviceId().empty()) {
+		config << "deviceid: " << getDeviceId() << std::endl;
+	}
+	// Nothing set
+	else {
+		config << "deviceid: " << std::endl;
+	}
 
-    return true;
+	// Close file
+	config.close();
+
+	return true;
 
 }
 
@@ -189,48 +214,46 @@ bool Config::saveConfig() {
  */
 std::string Config::toString() {
 
-    std::stringstream tmp;
+	std::stringstream tmp;
 
-    tmp << "mode: " << getMode() << std::endl <<
-        "username: " << getUserName() << std::endl <<
-        "password: " << getPassword() << std::endl <<
-        "deviceid: " << getDeviceId() << std::endl;
+	tmp << "mode: " << getMode() << std::endl << "username: " << getUserName()
+			<< std::endl << "password: " << getPassword() << std::endl
+			<< "deviceid: " << getDeviceId() << std::endl;
 
-
-    return tmp.str();
+	return tmp.str();
 
 }
 
 const std::string& Config::getDeviceId() const {
-    return deviceID;
+	return deviceID;
 }
 
 void Config::setDeviceId(const std::string& deviceId) {
-    deviceID = deviceId;
+	deviceID = deviceId;
 }
 
 AgentMode Config::getMode() const {
-    return mode;
+	return mode;
 }
 
 void Config::setMode(AgentMode mode) {
-    this->mode = mode;
+	this->mode = mode;
 }
 
 const std::string& Config::getPassword() const {
-    return password;
+	return password;
 }
 
 void Config::setPassword(const std::string& password) {
-    this->password = password;
+	this->password = password;
 }
 
 const std::string& Config::getUserName() const {
-    return userName;
+	return userName;
 }
 
 void Config::setUserName(const std::string& userName) {
-    this->userName = userName;
+	this->userName = userName;
 }
 
 int Config::getPollInterval() const {
@@ -239,4 +262,12 @@ int Config::getPollInterval() const {
 
 void Config::setPollInterval(int pollInterval) {
 	this->pollInterval = pollInterval;
+}
+
+const std::string& Config::getUrl() const {
+	return url;
+}
+
+void Config::setUrl(const std::string& url) {
+	this->url = url;
 }
