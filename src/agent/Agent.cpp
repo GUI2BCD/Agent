@@ -23,7 +23,6 @@ bool Agent::running = true;
  */
 Agent::Agent() {
 	config.setPollInterval(10);
-	connection.setReportUrl("http://192.168.1.102/Frontend/agent.php");
 	config.setMode(PASSIVE);
 
 }
@@ -48,6 +47,9 @@ void Agent::run() {
 	if (!config.loadConfig()) {
 		// Run first time setup
 		firstRunSetup();
+	} else {
+		// Setup connection from config
+		connection.setReportUrl(config.getUrl());
 	}
 
 	// Enter main daemon loop
@@ -89,6 +91,8 @@ void Agent::firstRunSetup() {
 	std::string tmp;
 	// Terminal blanking
 	termios tty;
+	// Setup connection
+	connection.setReportUrl(config.getUrl());
 
 	// Print message about the setup
 	std::cout << "****************************" << std::endl;
@@ -138,8 +142,10 @@ void Agent::firstRunSetup() {
 	// Store info
 	config.setUserName(username);
 	config.setPassword(password);
-
+	connection.setReportUrl(config.getUrl());
 	std::cout << config.toString() << std::endl;
+
+	config.saveConfig();
 
 }
 

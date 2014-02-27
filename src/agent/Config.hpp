@@ -10,11 +10,15 @@
 
 #include <string>
 
+// TODO put this in a default file somewhere
+static std::string defaultURL = "http://morrisherd.com/LastResortRecovery/agent.php";
+
 // Mode for the agent
 enum AgentMode {
 
 	FIRSTRUN, PASSIVE, ACTIVE
 };
+
 
 class Config {
 public:
@@ -42,6 +46,8 @@ public:
 	void setUserName(const std::string& userName);
 	int getPollInterval() const;
 	void setPollInterval(int pollInterval);
+	const std::string& getUrl() const;
+	void setUrl(const std::string& url);
 
 private:
 	// Username entered by user at first run
@@ -54,6 +60,9 @@ private:
 	AgentMode mode;
 	// Poll interval of the agent
 	int pollInterval;
+	// URL of webhost
+	std::string url;
+
 };
 
 #endif /* CONFIG_HPP_ */

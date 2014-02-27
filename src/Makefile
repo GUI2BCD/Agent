@@ -42,7 +42,7 @@ LINUX_OBJS = $(LINUX_SRCS:.cpp=.o)
 AGENT_OBJS = $(AGENT_SRCS:.cpp=.o)
 
 # define the executable file
-LINUX_BIN = linux_agent
+LINUX_BIN = lastresortagent
 
 #
 # The following part of the makefile is generic; it can be used to 
@@ -54,6 +54,9 @@ LINUX_BIN = linux_agent
 
 all:    $(LINUX_BIN)
 	@echo  Build Successful
+
+install: all
+	install $(LINUX_BIN) /usr/local/bin/; install -d /usr/share/lastresortrecovery/scripts; install -D scripts/*.sh /usr/share/lastresortrecovery/scripts/
 
 # Linux agent
 $(LINUX_BIN): $(LINUX_MAIN) $(LINUX_OBJS) $(AGENT_OBJS)

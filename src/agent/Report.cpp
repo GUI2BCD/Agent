@@ -24,13 +24,13 @@ Report::~Report() {
 void Report::collectData() {
 
 	// Local ip
-	setLocalIp( runProgram("scripts/getlocalip.sh", "r") );
+	setLocalIp( runProgram(location + "scripts/getlocalip.sh", "r") );
 
 	// Wifi hotspots
-	setWifi( runProgram("scripts/nearbywifi.sh", "r") );
+	setWifi( runProgram(location + "scripts/nearbywifi.sh", "r") );
 
 	// Traceroute
-	setTraceroute( runProgram("scripts/traceroute.sh", "r") );
+	setTraceroute( runProgram(location + "scripts/traceroute.sh", "r") );
 
 
 }
