@@ -41,8 +41,6 @@ bool Config::loadConfig() {
 	// Parsing variables
 	std::string token, tmp;
 
-	std::cout << getPath() << std::endl;
-	sleep(10);
 	// Open file
 	config.open(getPath().c_str());
 
