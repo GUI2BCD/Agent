@@ -56,7 +56,7 @@ all:    $(LINUX_BIN)
 	@echo  Build Successful
 
 install: all
-	install $(LINUX_BIN) /usr/local/bin/; install -d /usr/share/lastresortrecovery/scripts; install -D scripts/*.sh /usr/share/lastresortrecovery/scripts/
+	install $(LINUX_BIN) $(DESTDIR)/usr/local/bin/; install -d $(DESTDIR)/usr/share/lastresortrecovery/scripts; install -D scripts/*.sh $(DESTDIR)/usr/share/lastresortrecovery/scripts/
 
 # Linux agent
 $(LINUX_BIN): $(LINUX_MAIN) $(LINUX_OBJS) $(AGENT_OBJS)
