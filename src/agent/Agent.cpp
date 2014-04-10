@@ -128,8 +128,11 @@ void Agent::firstRunSetup() {
 
 	} while (connection.authenticate(username, password) != "Logged in");
 
+	std::cout << "Logged in successfully." << std::endl;
+
 	// Register this device
 	do {
+		std::cout << std::endl;
 		std::cout << "Device name: ";
 		std::cin >> deviceName;
 
@@ -143,9 +146,14 @@ void Agent::firstRunSetup() {
 	config.setUserName(username);
 	config.setPassword(password);
 	connection.setReportUrl(config.getUrl());
-	std::cout << config.toString() << std::endl;
 
+	// Save to configuration file
 	config.saveConfig();
+
+	// Done
+	std::cout << std::endl;
+	std::cout << "Your device is now registered. ";
+	std::cout << "Please return to your dashboard." << std::endl;
 
 }
 
@@ -185,17 +193,16 @@ void Agent::setSignals() {
 void Agent::runReport() {
 
 	Report r;
+	std::string reportID;
 
 	// Run data collection
 	std::cout << "Collecting data..." << std::endl;
 	r.collectData();
 	// Submit to server
 	std::cout << "Sending to server..." << std::endl;
-	std::cout << connection.sendReport(config.getUserName(), config.getPassword(),
-			config.getDeviceId(), r.toPost()) << std::endl;
-	// Completed
-	std::cout << "done." << std::endl;
-
+	reportID = connection.sendReport(config.getUserName(), config.getPassword(),
+			config.getDeviceId(), r.toPost());
+	std::cout << "Reporting complete." << std::endl;
 }
 
 /**
