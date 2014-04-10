@@ -82,7 +82,7 @@ std::string PassiveConnection::getStatus(std::string userName,
 	postData += "&deviceid=";
 	postData += deviceID;
 
-	std::cout << "Requesting: " << userURL << std::endl;
+	//std::cout << "Requesting: " << userURL << std::endl;
 
 	// Temporary storage
 	tmp.memory = (char *) malloc(1);
@@ -172,7 +172,7 @@ std::string PassiveConnection::authenticate(std::string userName,
 	postData = "email=" + userName;
 	postData += "&password=";
 	postData += password;
-	std::cout << "Requesting: " << userURL << std::endl;
+	//std::cout << "Requesting: " << userURL << std::endl;
 
 	// Temporary storage
 	tmp.memory = (char *) malloc(1);
@@ -251,7 +251,7 @@ std::string PassiveConnection::registerDevice(std::string userName,
 	postData += "&devicename=";
 	postData += deviceName;
 
-	std::cout << "Requesting: " << userURL << std::endl;
+	//std::cout << "Requesting: " << userURL << std::endl;
 
 	// Temporary storage
 	tmp.memory = (char *) malloc(1);
@@ -333,7 +333,7 @@ std::string PassiveConnection::sendReport(std::string userName,
 	// Add collected fields
 	postData += data;
 
-	std::cout << "Requesting: " << userURL << std::endl;
+	//std::cout << "Requesting: " << userURL << std::endl;
 
 	// Temporary storage
 	tmp.memory = (char *) malloc(1);

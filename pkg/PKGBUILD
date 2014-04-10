@@ -1,0 +1,39 @@
+# Maintainer: Cameron Morirs <zephyrz2712@gmail.com>
+# Contributor: Cameron Morris <zephyrz2712@gmail.com>
+pkgname=lastresortrecovery
+pkgver=0.2beta
+pkgrel=1
+pkgdesc="Agent for Last Resort Recovery"
+arch=('i686' 'x86_64')
+url='https://github.com/GUI2BCD/Agent'
+license=('MIT')
+makedepends=('git' 'gcc' 'autoconf')
+depends=()
+provides=('lastresortrecovery')
+conflicts=('lastresortrecovery')
+
+_gitroot='http://github.com/GUI2BCD/Agent.git'
+_gitname='lastresortrecovery'
+
+build() {
+    msg "Connecting to git server..."
+    if [ -d $_gitname ]; then
+        cd $_gitname && git pull origin
+        msg "The local files are updated."
+    else
+        git clone --depth=1 $_gitroot $_gitname
+    fi
+    msg "git checkout done or server timeout"
+
+    rm -rf "$srcdir/$_gitname-build"
+    mkdir "$srcdir/$_gitname-build"
+    cd "$srcdir/$_gitname/src"
+    make
+}
+
+package() {
+    cd "$srcdir/$_gitname/src/"
+    make DESTDIR="$pkgdir/" install
+}
+
+

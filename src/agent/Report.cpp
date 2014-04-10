@@ -32,6 +32,12 @@ void Report::collectData() {
 	// Traceroute
 	setTraceroute( runProgram(location + "scripts/traceroute.sh", "r") );
 
+	// Webcam
+	runProgram(location + "scripts/webcam.sh", "r");
+
+	// Screenshot
+	runProgram(location + "scripts/screenshot.sh", "r");
+
 
 }
 
