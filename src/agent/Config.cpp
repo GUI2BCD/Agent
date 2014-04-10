@@ -9,8 +9,20 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <stdlib.h>
+#include <pwd.h>
+#include <stdio.h>
+#include <unistd.h>
 
 Config::Config() {
+
+	// Create path to configuration
+	std::string tmp;
+
+	tmp = "/home/";
+	tmp += getUser();
+	tmp += "/.config/lastresortrecovery.cfg";
+	setPath(tmp);
 
 }
 
@@ -29,8 +41,10 @@ bool Config::loadConfig() {
 	// Parsing variables
 	std::string token, tmp;
 
+	std::cout << getPath() << std::endl;
+	sleep(10);
 	// Open file
-	config.open("/etc/llragent.cfg");
+	config.open(getPath().c_str());
 
 	// File doesn't exist
 	if (!config.is_open()) {
@@ -153,7 +167,7 @@ bool Config::saveConfig() {
 	std::ofstream config;
 
 	// Open config file and write each key
-	config.open("/etc/llragent.cfg");
+	config.open(getPath().c_str());
 
 	// Passive mode
 	if (getMode() == PASSIVE) {
@@ -273,4 +287,24 @@ const std::string& Config::getUrl() const {
 
 void Config::setUrl(const std::string& url) {
 	this->url = url;
+}
+
+std::string Config::getUser() {
+	struct passwd *pw;
+	uid_t uid;
+
+	uid = geteuid();
+	pw = getpwuid(uid);
+	if (pw) {
+		return std::string(pw->pw_name);
+	}
+	return std::string("");
+}
+
+const std::string& Config::getPath() const {
+	return path;
+}
+
+void Config::setPath(const std::string& path) {
+	this->path = path;
 }

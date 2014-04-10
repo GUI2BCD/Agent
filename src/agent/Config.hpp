@@ -48,8 +48,16 @@ public:
 	void setPollInterval(int pollInterval);
 	const std::string& getUrl() const;
 	void setUrl(const std::string& url);
+	const std::string& getPath() const;
+	void setPath(const std::string& path);
 
 private:
+	// Get the local username
+	std::string getUser();
+
+	// Config path
+	std::string path;
+
 	// Username entered by user at first run
 	std::string userName;
 	// Encrypted password
