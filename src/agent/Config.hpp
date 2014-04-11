@@ -35,6 +35,9 @@ public:
 	// Converts object to string
 	std::string toString();
 
+	// Get the local username
+	std::string getUser();
+
 	// Getters & Setters
 	const std::string& getDeviceId() const;
 	void setDeviceId(const std::string& deviceId);
@@ -52,8 +55,7 @@ public:
 	void setPath(const std::string& path);
 
 private:
-	// Get the local username
-	std::string getUser();
+
 
 	// Config path
 	std::string path;

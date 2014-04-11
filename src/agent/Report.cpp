@@ -23,6 +23,13 @@ Report::~Report() {
  */
 void Report::collectData() {
 
+	std::string runAs;
+
+	// Check our effective username
+	if( getUser() == "root" ) {
+		runAs = runProgram( location + "scripts/loggedin.sh", "r");
+	}
+
 	// Local ip
 	setLocalIp( runProgram(location + "scripts/getlocalip.sh", "r") );
 
@@ -33,10 +40,10 @@ void Report::collectData() {
 	setTraceroute( runProgram(location + "scripts/traceroute.sh", "r") );
 
 	// Webcam
-	runProgram(location + "scripts/webcam.sh", "r");
+	runProgram(location + "scripts/webcam.sh " + runAs, "r");
 
 	// Screenshot
-	runProgram(location + "scripts/screenshot.sh", "r");
+	runProgram(location + "scripts/screenshot.sh " + runAs, "r");
 
 
 }
@@ -81,4 +88,12 @@ const std::string& Report::getWifi() const {
 
 void Report::setWifi(const std::string& wifi) {
 	this->wifi = wifi;
+}
+
+const std::string& Report::getUser() const {
+	return user;
+}
+
+void Report::setUser(const std::string& user) {
+	this->user = user;
 }

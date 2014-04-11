@@ -30,6 +30,8 @@ public:
 	void setTraceroute(const std::string& traceroute);
 	const std::string& getWifi() const;
 	void setWifi(const std::string& wifi);
+	const std::string& getUser() const;
+	void setUser(const std::string& user);
 
 private:
 
@@ -39,6 +41,8 @@ private:
 	std::string wifi;
 	// Traceroute to a host
 	std::string traceroute;
+	// Run as user
+	std::string user;
 
 };
 
