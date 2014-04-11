@@ -293,6 +293,7 @@ std::string Config::getUser() {
 
 	uid = geteuid();
 	pw = getpwuid(uid);
+
 	if (pw) {
 		return std::string(pw->pw_name);
 	}

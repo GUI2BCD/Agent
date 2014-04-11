@@ -22,7 +22,7 @@ bool Agent::running = true;
  * Sets the default parameters for the agent
  */
 Agent::Agent() {
-	config.setPollInterval(10);
+	config.setPollInterval(30);
 	config.setMode(PASSIVE);
 
 }
@@ -195,13 +195,16 @@ void Agent::runReport() {
 	Report r;
 	std::string reportID;
 
+	// Get effective username
+	r.setUser(config.getUser());
+
 	// Run data collection
 	std::cout << "Collecting data..." << std::endl;
 	r.collectData();
 	// Submit to server
 	std::cout << "Sending to server..." << std::endl;
-	reportID = connection.sendReport(config.getUserName(), config.getPassword(),
-			config.getDeviceId(), r.toPost());
+	std::cout << connection.sendReport(config.getUserName(), config.getPassword(),
+			config.getDeviceId(), r.toPost()) << std::endl;
 	std::cout << "Reporting complete." << std::endl;
 }
 
