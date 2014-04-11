@@ -89,7 +89,7 @@ std::string PassiveConnection::getStatus(std::string userName,
 	tmp.size = 0;
 
 	// Initialize curl
-	curl_global_init (CURL_GLOBAL_ALL);
+	curl_global_init(CURL_GLOBAL_ALL);
 
 	// Init session
 	curl_handle = curl_easy_init();
@@ -102,7 +102,7 @@ std::string PassiveConnection::getStatus(std::string userName,
 	curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, postData.c_str());
 
 	// Set data destination
-	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *) &tmp);
+	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void * ) &tmp);
 
 	// Set user agent
 	curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
@@ -179,7 +179,7 @@ std::string PassiveConnection::authenticate(std::string userName,
 	tmp.size = 0;
 
 	// Initialize curl
-	curl_global_init (CURL_GLOBAL_ALL);
+	curl_global_init(CURL_GLOBAL_ALL);
 
 	// Init session
 	curl_handle = curl_easy_init();
@@ -192,7 +192,7 @@ std::string PassiveConnection::authenticate(std::string userName,
 	curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, postData.c_str());
 
 	// Set data destination
-	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *) &tmp);
+	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void * ) &tmp);
 
 	// Set user agent
 	curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
@@ -258,7 +258,7 @@ std::string PassiveConnection::registerDevice(std::string userName,
 	tmp.size = 0;
 
 	// Initialize curl
-	curl_global_init (CURL_GLOBAL_ALL);
+	curl_global_init(CURL_GLOBAL_ALL);
 
 	// Init session
 	curl_handle = curl_easy_init();
@@ -271,7 +271,7 @@ std::string PassiveConnection::registerDevice(std::string userName,
 	curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, postData.c_str());
 
 	// Set data destination
-	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *) &tmp);
+	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void * ) &tmp);
 
 	// Set user agent
 	curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
@@ -340,7 +340,7 @@ std::string PassiveConnection::sendReport(std::string userName,
 	tmp.size = 0;
 
 	// Initialize curl
-	curl_global_init (CURL_GLOBAL_ALL);
+	curl_global_init(CURL_GLOBAL_ALL);
 
 	// Init session
 	curl_handle = curl_easy_init();
@@ -353,7 +353,7 @@ std::string PassiveConnection::sendReport(std::string userName,
 	curl_easy_setopt(curl_handle, CURLOPT_POSTFIELDS, postData.c_str());
 
 	// Set data destination
-	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void *) &tmp);
+	curl_easy_setopt(curl_handle, CURLOPT_WRITEDATA, (void * ) &tmp);
 
 	// Set user agent
 	curl_easy_setopt(curl_handle, CURLOPT_USERAGENT, "libcurl-agent/1.0");
@@ -383,3 +383,72 @@ std::string PassiveConnection::sendReport(std::string userName,
 	return result;
 
 }
+
+std::string PassiveConnection::submitImages(std::string reportID,
+		std::string webcam, std::string screenshot) {
+	CURL *curl;
+	CURLcode res;
+	std::string result;
+
+	struct curl_httppost *formpost = NULL;
+	struct curl_httppost *lastptr = NULL;
+	struct curl_slist *headerlist = NULL;
+	static const char buf[] = "Expect:";
+
+	struct MemoryStruct tmp;
+
+	// Build user URL
+	std::string userURL = getReportUrl() + "?action=upload";
+
+//	std::cout << userURL << std::endl;
+
+	curl_global_init(CURL_GLOBAL_ALL);
+
+	// Temporary storage
+	tmp.memory = (char *) malloc(1);
+	tmp.size = 0;
+
+	// Report ID
+	// Screenshot
+	curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "reportid",
+			CURLFORM_COPYCONTENTS, reportID.c_str(), CURLFORM_END);
+
+	// Screenshot
+	curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "screenshot",
+			CURLFORM_FILE, "screenshot.png", CURLFORM_END);
+	// Webcam
+	curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "webcam",
+			CURLFORM_FILE, "00000001.png", CURLFORM_END);
+
+	curl = curl_easy_init();
+
+	headerlist = curl_slist_append(headerlist, buf);
+	// Set URL
+	curl_easy_setopt(curl, CURLOPT_URL, userURL.c_str());
+
+	curl_easy_setopt(curl, CURLOPT_HTTPPOST, formpost);
+	// Set callback
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
+	// Set data destination
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void * ) &tmp);
+
+	// Run it
+	res = curl_easy_perform(curl);
+	// Error check
+	if (res != CURLE_OK) {
+		std::cout << "Request status failed: " << curl_easy_strerror(res)
+				<< std::endl;
+	} else {
+		result = tmp.memory;
+	}
+	// Clean up
+	curl_easy_cleanup(curl);
+
+	// Cleanup form
+	curl_formfree(formpost);
+	// Clean up other
+	curl_slist_free_all(headerlist);
+
+	return "";
+}
+

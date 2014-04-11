@@ -30,6 +30,9 @@ public:
 	// Sends report to server
 	std::string sendReport( std::string userName, std::string password, std::string deviceID, std::string data);
 
+	// Sends images captured to server and cleans up
+	std::string submitImages( std::string reportID, std::string webcam, std::string screenshot);
+
 	// Getters & Setters
 	const std::string& getReportUrl() const;
 	void setReportUrl(const std::string& reportUrl);
@@ -37,6 +40,8 @@ public:
 	void setStatusUrl(const std::string& statusUrl);
 
 private:
+
+
 	std::string statusURL;
 	std::string reportURL;
 };

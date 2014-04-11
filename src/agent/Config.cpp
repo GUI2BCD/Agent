@@ -19,9 +19,7 @@ Config::Config() {
 	// Create path to configuration
 	std::string tmp;
 
-	tmp = "/home/";
-	tmp += getUser();
-	tmp += "/.config/lastresortrecovery.cfg";
+	tmp = "/etc/lastresortrecovery.cfg";
 	setPath(tmp);
 
 }
