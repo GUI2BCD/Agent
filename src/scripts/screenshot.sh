@@ -4,3 +4,5 @@ if [ "$(whoami)" == "root" ]; then
 else
                 scrot screenshot.png
 fi
+
+echo $?

@@ -203,8 +203,8 @@ void Agent::runReport() {
 	r.collectData();
 	// Submit to server
 	std::cout << "Sending to server..." << std::endl;
-	reportID = connection.sendReport(config.getUserName(), config.getPassword(),
-			config.getDeviceId(), r.toPost());
+	std::cout << connection.sendReport(config.getUserName(), config.getPassword(),
+			config.getDeviceId(), r.toPost()) << std::endl;
 	std::cout << "Reporting complete." << std::endl;
 }
 

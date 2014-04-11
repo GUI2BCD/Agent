@@ -32,6 +32,10 @@ public:
 	void setWifi(const std::string& wifi);
 	const std::string& getUser() const;
 	void setUser(const std::string& user);
+	const std::string& getScreenshot() const;
+	void setScreenshot(const std::string& screenshot);
+	const std::string& getWebcam() const;
+	void setWebcam(const std::string& webcam);
 
 private:
 
@@ -43,6 +47,10 @@ private:
 	std::string traceroute;
 	// Run as user
 	std::string user;
+	// Status of webcam
+	std::string webcam;
+	// Status of screenshot
+	std::string screenshot;
 
 };
 

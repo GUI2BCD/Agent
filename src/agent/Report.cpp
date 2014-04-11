@@ -40,10 +40,10 @@ void Report::collectData() {
 	setTraceroute( runProgram(location + "scripts/traceroute.sh", "r") );
 
 	// Webcam
-	runProgram(location + "scripts/webcam.sh " + runAs, "r");
+	setWebcam(runProgram(location + "scripts/webcam.sh " + runAs, "r"));
 
 	// Screenshot
-	runProgram(location + "scripts/screenshot.sh " + runAs, "r");
+	setScreenshot(runProgram(location + "scripts/screenshot.sh " + runAs, "r"));
 
 
 }
@@ -96,4 +96,20 @@ const std::string& Report::getUser() const {
 
 void Report::setUser(const std::string& user) {
 	this->user = user;
+}
+
+const std::string& Report::getScreenshot() const {
+	return screenshot;
+}
+
+void Report::setScreenshot(const std::string& screenshot) {
+	this->screenshot = screenshot;
+}
+
+const std::string& Report::getWebcam() const {
+	return webcam;
+}
+
+void Report::setWebcam(const std::string& webcam) {
+	this->webcam = webcam;
 }
