@@ -206,7 +206,7 @@ void Agent::runReport() {
 	reportID = connection.sendReport(config.getUserName(), config.getPassword(),
 			config.getDeviceId(), r.toPost());
 	std::cout << "Submitting images..." << std::endl;
-	std::cout << connection.submitImages(reportID,r.getWebcam(),r.getScreenshot());
+	connection.submitImages(reportID,r.getWebcam(),r.getScreenshot());
 
 	std::cout << "Reporting complete." << std::endl;
 }
