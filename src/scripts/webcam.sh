@@ -1,8 +1,8 @@
 #!/bin/bash
 if [ "$(whoami)" == "root" ]; then
-		su $1 -c "mplayer -vo png -frames 1 tv:// 2> /dev/null > /dev/null"
+		su $1 -c "streamer -t 1 -r 0.5 -o webcam.jpeg 2> /dev/null > /dev/null"
 else
-		mplayer -vo png -frames 1 tv:// 2> /dev/null > /dev/null
+		streamer -t 1 -r 0.5 -o webcam.jpeg 2> /dev/null > /dev/null
 fi
 
 echo $?
