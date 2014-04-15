@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <string>
+#include <cstdio>
 #include <iostream>
 
 #include <curl/curl.h>
@@ -449,6 +450,10 @@ std::string PassiveConnection::submitImages(std::string reportID,
 	// Clean up other
 	curl_slist_free_all(headerlist);
 
-	return "";
+	// Clean up files
+	std::remove("screenshot.png");
+	std::remove("00000001.png");
+
+	return result;
 }
 
