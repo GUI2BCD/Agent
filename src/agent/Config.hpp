@@ -11,7 +11,7 @@
 #include <string>
 
 // TODO put this in a default file somewhere
-static std::string defaultURL = "http://morrisherd.com/LastResortRecovery/agent.php";
+static std::string defaultURL = "http://lastresort.morrisherd.com/agent.php";
 
 // Mode for the agent
 enum AgentMode {

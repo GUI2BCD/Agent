@@ -1,0 +1,8 @@
+Package: lastresortrecovery
+Version: 0.2-beta
+Section: base
+Priority: optional
+Architecture: all
+Depends: libcurl4-openssl-dev, streamer, scrot, traceroute
+Maintainer: Cameron Morris <zephyrz2712@gmail.com>
+Description: Last Resort Recovery Agent
