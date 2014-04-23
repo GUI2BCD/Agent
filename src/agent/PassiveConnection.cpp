@@ -414,12 +414,12 @@ std::string PassiveConnection::submitImages(std::string reportID,
 			CURLFORM_COPYCONTENTS, reportID.c_str(), CURLFORM_END);
 
 	// Screenshot
-	if( screenshot == "0") {
+	if( screenshot == "0\n") {
 	curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "screenshot",
 			CURLFORM_FILE, "screenshot.png", CURLFORM_END);
 	}
 	// Webcam
-	if( webcam == "0" ) {
+	if( webcam == "0\n" ) {
 	curl_formadd(&formpost, &lastptr, CURLFORM_COPYNAME, "webcam",
 			CURLFORM_FILE, "webcam.jpeg", CURLFORM_END);
 	}
@@ -453,10 +453,10 @@ std::string PassiveConnection::submitImages(std::string reportID,
 	curl_slist_free_all(headerlist);
 
 	// Clean up files
-	if( screenshot == "0" ) {
+	if( screenshot == "0\n" ) {
 	std::remove("screenshot.png");
 	}
-	if( webcam == "0" ) {
+	if( webcam == "0\n" ) {
 	std::remove("webcam.jpeg");
 	}
 
